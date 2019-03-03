@@ -1,0 +1,37 @@
+class Solution {
+public:
+     int ml;
+     
+    void split(string s,int k,int left,int right)
+    {
+        map<char,int> m;
+        for(int i=left;i<right;i++)
+        {
+            m[s[i]]++;
+        }
+        int start=left;
+        for(int i=left;i<right;i++)
+        {  
+            if(m[s[i]]<k )
+            {
+                if(start!=i)
+                split(s,k,start,i);
+                start=i+1;
+            }
+        }
+        if(start==left)
+        {
+            ml=max(ml,right-left);
+        }
+       else if(start!=right)
+        {
+            split(s,k,start,right);
+        }
+        }
+    
+    int longestSubstring(string s, int k) {
+       ml=0;
+       split(s,k,0,s.size());
+        return ml;
+        }
+};
